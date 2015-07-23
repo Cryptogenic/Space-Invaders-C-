@@ -1,44 +1,21 @@
 #include <windows.h>
-#include <iostream>
+#include "Controller.h"
+#include "Entity.h"
+#include "Interface.h"
 
-using namespace std;
+#define GAME_WIDTH 	77
+#define GAME_HEIGHT 22
+#define POS_X 		 1
+#define POS_Y 		 1
 
-class model
+int main()
 {
-public:
-	int getX();
-	int getY();
-	COORD getSize();
-	COORD getOrigin();
-	CHAR_INFO getBuffer();
-	SMALL_RECT getRect();
+	Controller playerController( 0 );
+	Entity enemies( GAME_WIDTH );
+	Entity player( GAME_WIDTH );
+	Interface ui( GAME_WIDTH, GAME_HEIGHT );
 
-	int setX( int );
-	int setY( int );
-private:
-	int x;
-	int y;
+	playerController.init( enemies, player, ui );
 
-	COORD gridSize;
-	COORD gridOrigin;
-	CHAR_INFO screenBuffer;
-	SMALL_RECT drawRect;
-};
-
-class view
-{
-public:
-	void drawGrid( CHAR_INFO*, COORD );
-	void drawEnemies( CHAR_INFO*, COORD );
-	void drawPlayer( CHAR_INFO*, COORD );
-private:
-	void initConsoleGame();
-};
-
-class controller
-{
-public:
-	
-private:
-	HANDLE outputHandle;
+	return EXIT_SUCCESS;
 }
