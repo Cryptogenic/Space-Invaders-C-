@@ -38,8 +38,7 @@ private:
 class controller
 {
 public:
-	void listenKeyPress();
-	void listenAttacks();
+	
 private:
 	HANDLE outputHandle;
 }
