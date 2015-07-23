@@ -1,7 +1,5 @@
 #include <windows.h>
-#include "Controller.h"
-#include "Entity.h"
-#include "Interface.h"
+#include "headers\Controller.h"
 
 int main()
 {

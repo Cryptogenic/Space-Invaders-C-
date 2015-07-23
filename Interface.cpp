@@ -1,6 +1,6 @@
 #include <iostream> // debugging
 #include <windows.h>
-#include "Interface.h"
+#include "headers\Interface.h"
 
 #define GAME_WIDTH 	77
 #define GAME_HEIGHT 22

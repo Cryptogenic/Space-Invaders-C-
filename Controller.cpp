@@ -1,7 +1,7 @@
 #include <windows.h>
-#include "Controller.h"
-#include "Interface.h"
-#include "Entity.h"
+#include "headers\Controller.h"
+#include "headers\Interface.h"
+#include "headers\Entity.h"
 
 #define KEY_LEFT	75
 #define KEY_RIGHT	77

@@ -1,5 +1,5 @@
 #include <windows.h>
-#include "Entity.h"
+#include "headers\Entity.h"
 
 Entity::Entity( int max_width )
 {
