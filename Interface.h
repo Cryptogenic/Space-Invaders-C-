@@ -6,9 +6,7 @@
 class Interface
 {
 public:
-	Interface( int height = 0, int width = 0 );
-	void init( HANDLE outputHandle, CHAR_INFO* consoleBuffer, COORD gridSize, COORD gridOrigin, SMALL_RECT rectangle );
-	void initConsoleGame();
+	Interface();
 	void drawGrid();
 	void drawChar();
 private:

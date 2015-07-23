@@ -4,7 +4,7 @@
 class Entity
 {
 public:
-	Entity(int width = 0);
+	Entity(int max_width = 0);
 	int getX();
 	int getY();
 	int getCoordinates();

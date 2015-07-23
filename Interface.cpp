@@ -1,26 +1,31 @@
+#include <iostream> // debugging
 #include <windows.h>
 #include "Interface.h"
 
-Interface::Interface( int width, int height )
-{
-	max_width  = width;
-	max_height = height;
-}
+#define GAME_WIDTH 	77
+#define GAME_HEIGHT 22
+#define POS_X 		 1
+#define POS_Y 		 1
 
-void Interface::init( HANDLE outputHandle, CHAR_INFO* consoleBuffer, COORD gridSize, COORD gridOrigin, SMALL_RECT rectangle )
-{
-	out 		= outputHandle;
-	buffer 		= consoleBuffer;
-	size 		= gridSize;
-	origin 		= gridOrigin;
-	rect 		= rectangle;
+using namespace std;
 
-	initConsoleGame();
-}
-
-void Interface::initConsoleGame()
+struct GameCore
 {
-	drawGrid();
+	COORD size;
+	COORD origin;
+	HANDLE outStream;
+	SMALL_RECT drawRect;
+	CHAR_INFO buffer[ GAME_WIDTH * GAME_HEIGHT ];
+};
+
+GameCore Core;
+
+Interface::Interface()
+{
+	Core.outStream 	= GetStdHandle( STD_OUTPUT_HANDLE );
+	Core.size 		= { GAME_WIDTH, GAME_HEIGHT };
+	Core.origin 	= { 0, 0 };
+	Core.drawRect 	= { POS_X, POS_Y, POS_X * ( GAME_WIDTH - 1 ), POS_Y * ( GAME_HEIGHT - 1 ) };
 }
 
 void Interface::drawGrid()
@@ -28,32 +33,32 @@ void Interface::drawGrid()
 	int x;
 	int y;
 
-	for( y = 0; y < size.Y; y++ )
+	for( y = 0; y < Core.size.Y; y++ )
 	{
-		for( x = 0; x < size.X; x++ )
+		for( x = 0; x < Core.size.X; x++ )
 		{
-			buffer[ x + y * max_width ].Char.AsciiChar 			= ' ';
-			buffer[ x + y * max_width ].Attributes 				= FOREGROUND_GREEN;
+			Core.buffer[ x + y * GAME_WIDTH ].Char.AsciiChar 			= ' ';
+			Core.buffer[ x + y * GAME_WIDTH ].Attributes 				= FOREGROUND_GREEN;
 		}
 	}
 
-	for( y = 0; y < ( size.Y - 1 ); y++ )
+	for( y = 0; y < ( Core.size.Y - 1 ); y++ )
 	{
-		buffer[ 0 + y * max_width ].Char.AsciiChar					= '|';
-		buffer[ 0 + y * max_width ].Attributes						= FOREGROUND_GREEN;
-		buffer[ ( size.X - 2 ) + y * max_width ].Char.AsciiChar		= '|';
-		buffer[ ( size.X - 2 ) + y * max_width ].Attributes			= FOREGROUND_GREEN;
+		Core.buffer[ 0 + y * GAME_WIDTH ].Char.AsciiChar					= '|';
+		Core.buffer[ 0 + y * GAME_WIDTH ].Attributes						= FOREGROUND_GREEN;
+		Core.buffer[ ( Core.size.X - 2 ) + y * GAME_WIDTH ].Char.AsciiChar		= '|';
+		Core.buffer[ ( Core.size.X - 2 ) + y * GAME_WIDTH ].Attributes			= FOREGROUND_GREEN;
 	}
 
-	for( x = 0; x < ( size.X - 1 ); x++ )
+	for( x = 0; x < ( Core.size.X - 1 ); x++ )
 	{
-		buffer[ x + 0 * max_width ].Char.AsciiChar					= '=';
-		buffer[ x + 0 * max_width ].Attributes						= FOREGROUND_GREEN;
-		buffer[ x + ( size.Y - 2 ) ].Char.AsciiChar					= '=';
-		buffer[ x + ( size.Y - 2 ) ].Attributes						= FOREGROUND_GREEN;
+		Core.buffer[ x + 0 * GAME_WIDTH ].Char.AsciiChar					= '=';
+		Core.buffer[ x + 0 * GAME_WIDTH ].Attributes						= FOREGROUND_GREEN;
+		Core.buffer[ x + ( Core.size.Y - 2 ) * GAME_WIDTH ].Char.AsciiChar		= '=';
+		Core.buffer[ x + ( Core.size.Y - 2 ) ].Attributes						= FOREGROUND_GREEN;
 	}
 
-	WriteConsoleOutput( out, buffer, size, origin, &rect );
+	WriteConsoleOutput( Core.outStream, Core.buffer, Core.size, Core.origin, &Core.drawRect );
 }
 
 void Interface::drawChar()
@@ -61,30 +66,5 @@ void Interface::drawChar()
 	int x;
 	int y;
 
-	for( y = 0; y < size.Y; y++ )
-	{
-		for( x = 0; x < size.X; x++ )
-		{
-			buffer[ x + y * max_width ].Char.AsciiChar 			= ' ';
-			buffer[ x + y * max_width ].Attributes 				= FOREGROUND_GREEN;
-		}
-	}
-
-	for( y = 0; y < ( size.Y - 1 ); y++ )
-	{
-		buffer[ 0 + y * max_width ].Char.AsciiChar					= '|';
-		buffer[ 0 + y * max_width ].Attributes						= FOREGROUND_GREEN;
-		buffer[ ( size.X - 2 ) + y * max_width ].Char.AsciiChar		= '|';
-		buffer[ ( size.X - 2 ) + y * max_width ].Attributes			= FOREGROUND_GREEN;
-	}
-
-	for( x = 0; x < ( size.X - 1 ); x++ )
-	{
-		buffer[ x + 0 * max_width ].Char.AsciiChar					= '=';
-		buffer[ x + 0 * max_width ].Attributes						= FOREGROUND_GREEN;
-		buffer[ x + ( size.Y - 2 ) ].Char.AsciiChar					= '=';
-		buffer[ x + ( size.Y - 2 ) ].Attributes						= FOREGROUND_GREEN;
-	}
-
-	WriteConsoleOutput( out, buffer, size, origin, &rect );
+	cout << "." << endl;
 }

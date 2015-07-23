@@ -12,8 +12,12 @@ Controller::Controller( int k )
 	key = k;
 }
 
-void Controller::init( Entity player, Entity enemies, Interface ui )
+void Controller::init()
 {
+	Entity enemies( 77 );
+	Entity player( 77 );
+	Interface ui;
+
 	ui.drawGrid();
 }
 

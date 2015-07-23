@@ -1,11 +1,11 @@
 #include <windows.h>
 #include "Entity.h"
 
-Entity::Entity( int width )
+Entity::Entity( int max_width )
 {
 	x = 0;
 	y = 0;
-	max = width;
+	max = max_width;
 }
 
 int Entity::getCoordinates()

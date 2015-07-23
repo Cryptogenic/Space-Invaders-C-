@@ -11,7 +11,7 @@ public:
 	Controller( int k );
 	void listenKeyPress();
 	void listenAttacks();
-	void init( Entity player, Entity enemies, Interface ui );
+	void init();
 private:
 	int key;
 };
