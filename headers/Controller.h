@@ -8,10 +8,13 @@
 class Controller
 {
 public:
-	void initBullet();
+	void initBulletEnemy(int x, int y);
+	void initBulletPlayer();
 	void listenKeyPress();
 	void listenAttacks();
 	void init();
+	void gameOver();
+	int score;
 private:
 	int key;
 };
