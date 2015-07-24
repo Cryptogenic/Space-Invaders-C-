@@ -61,12 +61,19 @@ void Interface::drawGrid()
 	WriteConsoleOutput( Core.outStream, Core.buffer, Core.size, Core.origin, &Core.drawRect );
 }
 
-void Interface::drawChar( int x, int y, char symbol )
+int Interface::drawChar( int x, int y, char symbol, char type )
 {
 	Core.buffer[ x + y * GAME_WIDTH ].Char.AsciiChar		= symbol;
 	Core.buffer[ x + y * GAME_WIDTH ].Attributes			= FOREGROUND_GREEN;
 
 	WriteConsoleOutput( Core.outStream, Core.buffer, Core.size, Core.origin, &Core.drawRect );
+
+	if( type == 'x' )
+	{
+		return x;
+	} else {
+		return y;
+	}
 }
 
 int Interface::getWidth()
@@ -77,4 +84,9 @@ int Interface::getWidth()
 int Interface::getHeight()
 {
 	return GAME_HEIGHT;
+}
+
+char Interface::checkChar( int x, int y )
+{
+	return Core.buffer[ x + y * GAME_WIDTH ].Char.AsciiChar;
 }

@@ -8,6 +8,7 @@
 class Controller
 {
 public:
+	void initBullet();
 	void listenKeyPress();
 	void listenAttacks();
 	void init();
