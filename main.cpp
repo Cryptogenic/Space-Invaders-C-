@@ -3,7 +3,7 @@
 
 int main()
 {
-	Controller playerController( 0 );
+	Controller playerController;
 
 	playerController.init();
 

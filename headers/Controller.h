@@ -8,7 +8,6 @@
 class Controller
 {
 public:
-	Controller( int k );
 	void listenKeyPress();
 	void listenAttacks();
 	void init();

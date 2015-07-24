@@ -8,7 +8,9 @@ class Interface
 public:
 	Interface();
 	void drawGrid();
-	void drawChar();
+	void drawChar( int x, int y, char symbol );
+	int getWidth();
+	int getHeight();
 private:
 	int max_width;
 	int max_height;

@@ -61,10 +61,20 @@ void Interface::drawGrid()
 	WriteConsoleOutput( Core.outStream, Core.buffer, Core.size, Core.origin, &Core.drawRect );
 }
 
-void Interface::drawChar()
+void Interface::drawChar( int x, int y, char symbol )
 {
-	int x;
-	int y;
+	Core.buffer[ x + y * GAME_WIDTH ].Char.AsciiChar		= symbol;
+	Core.buffer[ x + y * GAME_WIDTH ].Attributes			= FOREGROUND_GREEN;
 
-	cout << "." << endl;
+	WriteConsoleOutput( Core.outStream, Core.buffer, Core.size, Core.origin, &Core.drawRect );
+}
+
+int Interface::getWidth()
+{
+	return GAME_WIDTH;
+}
+
+int Interface::getHeight()
+{
+	return GAME_HEIGHT;
 }
